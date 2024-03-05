@@ -1,0 +1,592 @@
+print("Loading Function")
+setfpscap(999)
+local Notification = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/notification_gui_library.lua", true))()
+local notif1 = Notification.new("success", "Rendoxy Hub - Blade Ball", "Script Loading.")
+wait(0.5)
+local notif2 = Notification.new("success", "Rendoxy Hub - Blade Ball", "Script Loading..")
+wait(0.5)
+local notif3 = Notification.new("success", "Rendoxy Hub - Blade Ball", "Script Loading...")
+wait(0.5)
+local notif4 = Notification.new("success", "Rendoxy Hub - Blade Ball", "Script Success ✅")
+wait(0.5)
+
+local TweenService = game:GetService("TweenService")
+local SoundClick2 = Instance.new("Sound")
+SoundClick2.Name = "Sound Effect"
+SoundClick2.SoundId = "rbxassetid://3398620867"
+SoundClick2.Volume = 1
+SoundClick2.Parent = game.Workspace
+local UIStroke = Instance.new("UIStroke")
+local UICorner = Instance.new("UICorner")
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local RobloxButton = Enum.ButtonStyle.RobloxButton
+ScreenGui.Parent = game.CoreGui:WaitForChild("RobloxGui"):WaitForChild("Modules")
+ScreenGui.Name = "dsfwefwfwdfsfasdadaxczcw"
+ImageButton.Parent = ScreenGui
+ImageButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
+ImageButton.Size = UDim2.new(0, 45, 0, 45)
+ImageButton.Draggable = true
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BackgroundTransparency = 1
+ImageButton.Image = "rbxassetid://16577525424"
+
+function LoadFunction()    
+        ImageButton.MouseEnter:Connect(function()
+        TweenService:Create(
+            ImageButton,
+            TweenInfo.new(.2, Enum.EasingStyle.Back, Enum.EasingDirection.InOut),
+            {Size = UDim2.new(0, 80, 0, 80)}
+        ):Play()
+    end)
+    ImageButton.MouseLeave:Connect(function()
+        TweenService:Create(
+            ImageButton,
+            TweenInfo.new(.2, Enum.EasingStyle.Back, Enum.EasingDirection.InOut),
+            {Size = UDim2.new(0, 50, 0, 50)}
+        ):Play()
+    end)
+    
+    local LoadFocus = false
+    
+    ImageButton.MouseButton1Down:Connect(function()
+        if LoadFocus == false then 
+            LoadFocus = false
+            TweenService:Create(
+                ImageButton,
+                TweenInfo.new(.2, Enum.EasingStyle.Back, Enum.EasingDirection.InOut),
+                {Rotation = 180}
+            ):Play()
+            SoundClick2:Play()
+            TweenService:Create(
+                ImageButton,
+                TweenInfo.new(.4, Enum.EasingStyle.Quart, Enum.EasingDirection.In),
+                {ImageTransparency = 0}
+            ):Play()
+            wait(.5)
+            TweenService:Create(
+                ImageButton,
+                TweenInfo.new(.2, Enum.EasingStyle.Back, Enum.EasingDirection.InOut),
+                {Rotation = 0}
+            ):Play()
+            TweenService:Create(
+                ImageButton,
+                TweenInfo.new(.4, Enum.EasingStyle.Quart, Enum.EasingDirection.In),
+                {ImageTransparency = 0}
+            ):Play()
+            wait(.5)	
+            
+        end
+    end)
+end
+    LoadFunction()
+    ImageButton.MouseButton1Down:connect(function()
+	game:GetService("VirtualInputManager"):SendKeyEvent(true,127,false,game)
+        game:GetService("VirtualInputManager"):SendKeyEvent(false,127,false,game)
+    end)
+
+	spawn(function()
+        pcall(function()
+            game:GetService("RunService").Stepped:Connect(function()
+              if _G.Tpball then
+                     if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
+                        local Noclip = Instance.new("BodyVelocity")
+                        Noclip.Name = "BodyClip"
+                        Noclip.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+                        Noclip.MaxForce = Vector3.new(100000,100000,100000)
+                        Noclip.Velocity = Vector3.new(0,0,0)
+                     end
+                  else	
+                     if game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
+                        game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
+                    end
+                end
+            end)
+        end)
+    end)
+     
+    spawn(function()
+        pcall(function()
+            game:GetService("RunService").Stepped:Connect(function()
+               if _G.Tpball then
+                    for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+                        if v:IsA("BasePart") then
+                            v.CanCollide = false    
+                        end
+                    end
+                end
+            end)
+        end)
+    end)
+    
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+        game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+        wait(1)
+        game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+    end)
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/x2-Neptune/SlayerzUI/main/BetaLibrary.script"))()
+
+local Name = "Rendoxy Hub | Blade Ball"
+local Description = "Version : 1.0 | [ Free ]"
+local Image = "rbxassetid://16608344199"
+local Color = Color3.fromRGB(255, 0, 0)
+
+local Window = Library:Window(Name,Description,Image,Color)
+
+local Info_Tab = Window:Tab("Info") 
+local Genaral_Tab = Window:Tab("Genaral") 
+local Misc_Tab = Window:Tab("Misc") 
+local Profile = Info_Tab:Section("- Profile -","Left")
+
+Profile:Label("Username : ".. game.Players.LocalPlayer.Name)
+local Time = Profile:Label("")
+
+function UpdateTime()
+    local gameTime = math.floor(workspace.DistributedGameTime + 0.5)
+    local hour = math.floor(gameTime / (60^2)) % 24
+    local minute = math.floor(gameTime / (60^1)) % 60
+    local second = math.floor(gameTime / (60^0)) % 60
+    Time:Change("\nHours : ".. hour .. "Minutes : " .. minute .. "Seconds : "..second)
+end
+task.spawn(function()
+    while task.wait() do
+        UpdateTime()
+    end
+end)
+local Fps = Profile:Label("")
+
+function UpdateFps()
+    local fps = workspace:GetRealPhysicsFPS()
+    Fps:Change("Fps: "..fps)
+end
+task.spawn(function()
+    while task.wait() do
+        UpdateFps()
+    end
+end)
+
+local Ping = Profile:Label("")
+
+function UpdatePing()
+    local ping = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+    Ping:Change("Ping: "..ping)
+end
+task.spawn(function()
+    while task.wait() do
+        UpdatePing()
+    end
+end)
+
+local Dey_Stats = Profile:Label("Day : "..os.date('%A, %B %d '))
+
+spawn(function()
+    while wait() do
+        Dey_Stats:Change("Day : "..os.date('%A, %B %d '))
+    end
+end)
+
+local Credit = Info_Tab:Section("- Credit -","Right")
+
+Credit:Label("Script Make By : _rendxry.\nUi Make By x2neptune")
+Credit:Button("Copy Link Discord",function()
+    setclipboard("https://discord.gg/JEHEf7GGZS")
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Rendoxy Hub - Notication",
+        Text = "Successfully Copied",
+        Icon = "rbxassetid://16608344199",
+        Duration = 3,
+    })
+end)
+
+local Main = Genaral_Tab:Section("- Main -","Left")
+
+local BallStutas = Main:Label("Ball Spawned : ")
+    
+function UpdateBall()  
+    local Ball = workspace:WaitForChild("Balls", 9e9)
+    if Ball then 
+        BallStutas:Change(`Ball Spawned : 🟢`)
+    else 
+        BallStutas:Change(`Ball Spawned : 🔴`)
+    end
+end
+
+task.spawn(function()
+	while task.wait() do
+		UpdateBall()
+	end
+end)
+
+    
+Main:Toggle("Auto Farm",false,function(t)
+    _G.Tpball = t
+    _G.AutoParry = t
+    _G.SpectBall = t
+end)
+
+
+Main:Toggle("Auto Parry",_G.AutoParry,function(t)
+    _G.AutoParry = t
+end)
+
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+
+local Player = Players.LocalPlayer or Players.PlayerAdded:Wait()
+local Remotes = ReplicatedStorage:WaitForChild("Remotes", 9e9)
+local Balls = workspace:WaitForChild("Balls", 9e9)
+
+--- Functions
+
+local function VerifyBall(Ball)
+    if typeof(Ball) == "Instance" and Ball:IsA("BasePart") and Ball:IsDescendantOf(Balls) and Ball:GetAttribute("realBall") == true then
+        return true
+    end
+end
+
+local function IsTarget()
+    return (Player.Character and Player.Character:FindFirstChild("Highlight"))
+end
+
+local function Parry()
+    Remotes:WaitForChild("ParryButtonPress"):Fire()
+end
+
+Balls.ChildAdded:Connect(function(Ball)
+    if not VerifyBall(Ball) then
+        return
+    end
+
+    local OldPosition = Ball.Position
+    local OldTick = tick()
+    Ball:GetPropertyChangedSignal("Position"):Connect(function()
+            if IsTarget() then
+                local Distance = (Ball.Position - workspace.CurrentCamera.Focus.Position).Magnitude
+                local Velocity = (OldPosition - Ball.Position).Magnitude
+                    if _G.AutoParry then
+                        if (Distance / Velocity) <= DistanceParry then 
+                            Parry()
+                        end
+                        if (Distance / Velocity) <= 5 then 
+                            Parry()
+                        end
+                        if (Distance / Velocity) <= 10 then 
+                            Parry()
+                        end
+                    end
+                if (Distance / Velocity) <= 5 then
+                    Parry()
+                    Parry()
+                    Parry()
+                    Parry()
+                    Parry()
+                    Parry()
+                    Parry()
+                end
+            end     
+        if (tick() - OldTick >= 1/1000000) then
+            OldTick = tick()
+            OldPosition = Ball.Position
+        end
+    end)
+end)
+
+
+Main:Toggle("Auto Spam",_G.AutoSpam,function(t)
+    _G.AutoSpam = t
+end)
+spawn(function()
+	while wait() do
+        if _G.AutoSpam then 
+            pcall(function()
+		        Parry()
+                Parry()
+                Parry()
+                Parry()
+                Parry()
+                Parry()
+                Parry()
+                Parry()
+            end) 
+        end 
+	end
+end)
+Main:Toggle("Spectator Ball",_G.SpectBall,function(t)
+    _G.SpectBall = t
+end)
+game:GetService("Workspace").Balls.ChildAdded:Connect(function(child) 
+    local trackTask = task.spawn(function()
+    local ball = child
+    while task.wait() do
+        if _G.SpectBall then
+            local camera = game.workspace.CurrentCamera 
+            camera.CameraSubject = ball
+        else 
+            local camera = game.workspace.CurrentCamera
+            camera.CameraSubject = game.Players.LocalPlayer.Character.HumanoidRootPart
+        end
+    end
+end)
+    child.Destroying:Connect(function()
+        task.cancel(trackTask)
+    end)
+end)
+
+
+Main:Toggle("Teleport To Ball",_G.Tpball,function(t)
+    _G.Tpball = t
+end)
+task.spawn(function()
+    while task.wait() do
+        if _G.Tpball then
+            X = math.random(-15 , 15)
+            Y = math.random(-15 , 15)
+            Z = math.random(-15 , 15)
+            if X < 10 or X > -10  or Y < 10 or Y > -10  or Z < 10 or Z > -10  then
+                X = 15
+                Y = 15
+                Z = 15
+            end
+        end
+    end
+end)
+
+
+spawn(function()
+    while task.wait() do
+        if _G.Tpball then
+            pcall(function()
+                for _,ball in next, workspace.Balls:GetChildren() do
+                    if ball then
+                        if _G.Tpball == true then    
+                            game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = ball.CFrame * CFrame.new(X, Y, (ball.Velocity).Magnitude * Z)
+                        else
+                            game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = ball.CFrame * CFrame.new(15, 0, (ball.Velocity).Magnitude * 15)
+                        end
+                    end
+                end
+            end)
+        end 
+    end
+end)
+
+DistanceParry = 15
+Main:Slider("Distance Parry",1,50,15,function(t)
+    DistanceParry = t
+end)
+
+local Creates = Genaral_Tab:Section("- Creates -","Left")
+
+Creates:Toggle("Auto Open Explosion Box",_G.AutoExplosion,function(t)
+    _G.AutoExplosion = t
+    while _G.AutoExplosion do wait()
+        game:GetService("ReplicatedStorage").Remotes.Store.RequestOpenExplosionBox:InvokeServer()
+    end
+end)
+    
+Creates:Toggle("Auto Open Sword Box",_G.AutoSword,function(t)
+    _G.AutoSword = t
+    while _G.AutoSword do wait()
+        game:GetService("ReplicatedStorage").Remotes.Store.RequestOpenSwordBox:InvokeServer()
+    end
+end)
+
+local Spin = Genaral_Tab:Section("- Spin -","Left")
+Spin:Toggle("Auto Spin",_G.Spin,function(t)
+    _G.Spin = t
+    while _G.Spin do wait()
+        game:GetService("ReplicatedStorage").Remotes.useSpin:InvokeServer()
+    end
+end)
+
+local Code = Genaral_Tab:Section("- Code -","Right")
+
+CodeList = {
+    "TOURNAMENTSW",
+    "LAVAFLOOR",
+    "LUNARNEWYEAR",
+    "ELEMENTSPIN",
+    "FREEHOURLY",
+    "FREESPINS",
+    "SENTINELSREVENGE",
+    "2BTHANKS"
+}
+
+Code:Dropdown("Select Code",CodeList,{"-"},function(t)
+    _G.SelectCode = t
+end)
+Code:Toggle("Auto Redeem Code",_G.AutoCode,function(t)
+    _G.AutoCode = t
+    while _G.AutoCode do wait()
+        for i, code in pairs(_G.SelectCode) do
+			game:GetService("ReplicatedStorage").Remotes.SubmitCodeRequest:InvokeServer(code)
+		end
+    end
+end)
+Code:Button("Redeem All Code",function()
+    for i, code in pairs(CodeList) do
+        game:GetService("ReplicatedStorage").Remotes.SubmitCodeRequest:InvokeServer(code)
+    end 
+end)
+local Vote = Genaral_Tab:Section("- Vote -","Right")
+
+Votelist = {
+   "FFA",
+   "2Teams",
+   "4Teams"
+}
+Vote:Dropdown("Select Vote",Votelist,{"-"},function(t)
+    _G.SelectVote = t
+end)
+
+Vote:Toggle("Auto Vote",_G.AutoVote,function(t)
+_G.AutoVote = t
+    while _G.AutoVote do wait()
+    game:GetService("ReplicatedStorage").Packages._Index["sleitnick_net@0.1.0"].net["RE/UpdateVotes"]:FireServer(_G.SelectVote)
+    end
+end)
+
+local Abilities = Genaral_Tab:Section("- Abilities -","Right")
+
+Abilitieslist = {
+    "Super Jump",
+    "Platform",
+    "Invisibility",
+    "Quad Jump",
+    "Thunder Dash",
+    "Shadow Step",
+    "Freeze",
+    "Wind Cloak",
+    "Blink",
+    "Forcefield",
+    "Swap",
+    "Reaper",
+    "Raging Deflection",
+    "Martyrdom",
+    "Telekinesis",
+    "Pull",
+    "Pulse",
+    "Flash Counter",
+    "Absolute Confidence"
+}
+
+Abilities:Dropdown("Select Abilities",Abilitieslist,{"-"},function(t)
+    _G.SelectAbilities = t
+end)
+
+Abilities:Toggle("Auto Buy Abilities",_G.Auto_Buy_AbilitiesVote,function(t)
+_G.Auto_Buy_Abilities = t
+    while _G.Auto_Buy_Abilities do wait()
+game:GetService("ReplicatedStorage").Remotes.Store.RequestBuyAbility:InvokeServer(_G.SelectAbilities)
+    end
+end)
+
+local Players = Misc_Tab:Section("- Players -","Left")
+
+Players:Slider("Speed Walk",1,100,25,function(t)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = t
+end)
+
+Players:Toggle("No Clip",_G.Noclip,function(t)
+    _G.Noclip = t
+end)
+spawn(function()
+    while game:GetService("RunService").Stepped:wait() do
+        pcall(function()
+            if _G.Noclip then
+                local character = game.Players.LocalPlayer.Character
+                for _, v in pairs(character:GetChildren()) do
+                    if v:IsA("BasePart") then
+                        v.CanCollide = false
+                    end
+                end
+            end
+        end)
+    end
+end) 
+Players:Toggle("Inf Jump",_G.infjmp,function(t)
+    _G.infjmp = t
+		game:GetService("UserInputService").jumpRequest:Connect(function()
+			if _G.infjmp then
+				game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass"Humanoid":ChangeState("Jumping")
+			end
+		end)
+end)
+function Hop()
+    local PlaceID = game.PlaceId
+    local AllIDs = {}
+    local foundAnything = ""
+    local actualHour = os.date("!*t").hour
+    local Deleted = false
+    function TPReturner()
+        local Site;
+        if foundAnything == "" then
+            Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+        else
+            Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+        end
+        local ID = ""
+        if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+            foundAnything = Site.nextPageCursor
+        end
+        local num = 0;
+        for i,v in pairs(Site.data) do
+            local Possible = true
+            ID = tostring(v.id)
+            if tonumber(v.maxPlayers) > tonumber(v.playing) then
+                for _,Existing in pairs(AllIDs) do
+                    if num ~= 0 then
+                        if ID == tostring(Existing) then
+                            Possible = false
+                        end
+                    else
+                        if tonumber(actualHour) ~= tonumber(Existing) then
+                            local delFile = pcall(function()
+                                AllIDs = {}
+                                table.insert(AllIDs, actualHour)
+                            end)
+                        end
+                    end
+                    num = num + 1
+                end
+                if Possible == true then
+                    table.insert(AllIDs, ID)
+                    wait()
+                    pcall(function()
+                        wait()
+                        game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                    end)
+                    wait(4)
+                end
+            end
+        end
+    end
+    function Teleport() 
+        while wait() do
+            pcall(function()
+                TPReturner()
+                if foundAnything ~= "" then
+                    TPReturner()
+                end
+            end)
+        end
+    end
+    Teleport()
+end       
+local Misc = Misc_Tab:Section("- Misc -","Right")
+
+Misc:Button("Hop Server",function()
+    Hop() 
+end)
+Misc:Button("Rejoin Server",function()
+    local ts = game:GetService("TeleportService")
+	local p = game:GetService("Players").LocalPlayer
+	ts:Teleport(game.PlaceId, p)
+end)
+wait(2)
+notif1:delete()
+notif2:delete()
+notif3:delete()
+notif4:delete()
